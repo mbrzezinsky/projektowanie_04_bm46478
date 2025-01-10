@@ -2,6 +2,7 @@ package lab04.users.api;
 
 import lab04.security.SignatureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,7 @@ public class SignatureController {
     }
 
     @PostMapping("/generate-jwts")
-    public String generateJWTS(@RequestBody String data) {
-        return signatureService.generateJWSSignature(data);
+    public ResponseEntity<SignatureResponse> generateJWTS(@RequestBody String data) {
+        return ResponseEntity.ok(new SignatureResponse(signatureService.generateJWSSignature(data)));
     }
 }
